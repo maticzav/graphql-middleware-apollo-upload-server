@@ -1,0 +1,35 @@
+{
+  "name": "graphql-middleware-upload",
+  "version": "0.0.0-semantic-release",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
+  "repository": "https://github.com/homeroom-live/graphql-middleware-upload",
+  "author": "Matic Zavadlal <matic.zavadlal@gmail.com>",
+  "scripts": {
+    "prepublish": "npm run test",
+    "lint": "tslint --project tsconfig.json {src}/**/*.ts && prettier-check --ignore-path .gitignore {src,.}/{*.ts,*.js}",
+    "test": "npm run lint && npm run build",
+    "semantic-release": "semantic-release"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "graphql-middleware": "^1.3.0",
+    "prettier": "^1.13.5",
+    "prettier-check": "^2.0.0",
+    "semantic-release": "^15.5.2",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.9.2"
+  },
+  "peerDependencies": {
+    "graphql-shield": "^2.1.4"
+  },
+  "license": "MIT"
+}
