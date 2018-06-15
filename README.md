@@ -17,7 +17,7 @@ GraphQL Middleware Apollo Upload Server manages uploads for you so you don't hav
 - 🛴 Half automatic.
 - 🏆 Works with every GraphQL server.
 
-## DEMO
+## Demo
 
 ```ts
 import { GraphQLServer } from 'graphql-yoga'

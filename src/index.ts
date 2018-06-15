@@ -1,4 +1,5 @@
 import { IMiddleware } from 'graphql-middleware'
+import { GraphQLUpload } from 'apollo-upload-server'
 import { GraphQLResolveInfo, visit } from 'graphql'
 
 interface IConfig<output> {
@@ -15,7 +16,7 @@ export interface IFile {
 // get fields from Upload scalar type
 
 function getUploadArgumentsNames(info: GraphQLResolveInfo): string[] {
-  return visit(info, info.path)
+  return []
 }
 
 export const upload = <output>(config: IConfig<output>): IMiddleware => {
