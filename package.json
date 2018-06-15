@@ -1,5 +1,5 @@
 {
-  "name": "graphql-middleware-upload",
+  "name": "graphql-middleware-apollo-upload-server",
   "version": "0.0.0-semantic-release",
   "files": [
     "dist"
@@ -17,8 +17,12 @@
     "test": "npm run lint && npm run build",
     "semantic-release": "semantic-release"
   },
-  "dependencies": {},
+  "dependencies": {
+    "apollo-upload-server": "^5.0.0"
+  },
   "devDependencies": {
+    "@types/graphql": "^0.13.1",
+    "graphql": "^0.13.2",
     "graphql-middleware": "^1.3.0",
     "prettier": "^1.13.5",
     "prettier-check": "^2.0.0",
@@ -29,7 +33,8 @@
     "typescript": "^2.9.2"
   },
   "peerDependencies": {
-    "graphql-shield": "^2.1.4"
+    "graphql": "^0.13.2",
+    "graphql-middleware": "^1.3.0"
   },
   "license": "MIT"
 }
