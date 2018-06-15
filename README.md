@@ -93,7 +93,13 @@ const resolvers = {
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
-  middlewares: [upload({ uploadHandler: uploadToS3 })]
+  middlewares: [upload({ uploadHandler: uploadToS3 })],
+  context: req => ({
+    ...req,
+    db: new Prisma({
+      endpoint: __PRISMA_ENDPOINT__,
+    })
+  })
 })
 
 server.listen(() => {
