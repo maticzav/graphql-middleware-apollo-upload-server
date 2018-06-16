@@ -7,6 +7,12 @@ GraphQL Middleware Apollo Upload Server manages uploads for you so you don't hav
 
 > ❗️ Requires [Apollo Upload Server](https://github.com/jaydenseric/apollo-upload-server).
 
+## Install
+
+```bash
+yarn add graphql-middleware-apollo-upload-server
+```
+
 ## Overview
 
 `graphql-middleware-apollo-upload-server` handles file upload for you by searching for all `Upload` types first, and handling the files if they are included in arguments. Everything else is in your hands!
