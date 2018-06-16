@@ -13,10 +13,12 @@ export interface IFile {
   encoding: string
 }
 
-// get fields from Upload scalar type
-
 function getUploadArgumentsNames(info: GraphQLResolveInfo): string[] {
-  return []
+  const typeFields = info.parentType.getFields()
+  const field = typeFields[info.fieldName]
+  const args = field.args.filter(arg => arg.type === GraphQLUpload)
+
+  return args.map(arg => arg.name)
 }
 
 export const upload = <output>(config: IConfig<output>): IMiddleware => {
