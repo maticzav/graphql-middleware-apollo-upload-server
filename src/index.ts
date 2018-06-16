@@ -1,6 +1,6 @@
 import { IMiddleware } from 'graphql-middleware'
 import { GraphQLUpload } from 'apollo-upload-server'
-import { GraphQLResolveInfo, visit } from 'graphql'
+import { GraphQLResolveInfo } from 'graphql'
 
 interface IConfig<output> {
   uploadHandler: (file: IFile) => Promise<output>
@@ -15,8 +15,8 @@ export interface IFile {
 
 function getUploadArgumentsNames(info: GraphQLResolveInfo): string[] {
   const typeFields = info.parentType.getFields()
-  const field = typeFields[info.fieldName]
-  const args = field.args.filter(arg => arg.type === GraphQLUpload)
+  const args = typeFields[info.fieldName].args
+  const uploadArgs = args.filter(arg => arg.type === GraphQLUpload)
 
   return args.map(arg => arg.name)
 }
@@ -24,6 +24,9 @@ function getUploadArgumentsNames(info: GraphQLResolveInfo): string[] {
 export const upload = <output>(config: IConfig<output>): IMiddleware => {
   return async (resolve, parent, args, ctx, info) => {
     const uploadArgumentsNames = getUploadArgumentsNames(info)
+    const nonEmptyUploadArgumentsNames = uploadArgumentsNames.filter(
+      argName => args[argName] !== undefined,
+    )
 
     const uploads = await Promise.all(
       uploadArgumentsNames.map(uploadArgumentName =>
