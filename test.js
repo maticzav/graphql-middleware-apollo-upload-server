@@ -20,8 +20,8 @@ test('Finds the right arguments', async t => {
 
   const resolvers = {
     Query: {
-      foo: () => ''
-    }
+      foo: () => '',
+    },
     Mutation: {
       test: async (parent, args, ctx, info) => {
         t.is(args.upload, 'passes')
