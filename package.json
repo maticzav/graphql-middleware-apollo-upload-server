@@ -1,5 +1,6 @@
 {
   "name": "graphql-middleware-apollo-upload-server",
+  "description": "File upload is hard, that's why you need me!",
   "version": "0.0.0-semantic-release",
   "files": [
     "dist"
