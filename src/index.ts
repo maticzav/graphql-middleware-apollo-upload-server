@@ -18,7 +18,7 @@ function getUploadArgumentsNames(info: GraphQLResolveInfo): string[] {
   const args = typeFields[info.fieldName].args
   const uploadArgs = args.filter(arg => arg.type === GraphQLUpload)
 
-  return args.map(arg => arg.name)
+  return uploadArgs.map(arg => arg.name)
 }
 
 export const upload = <output>(config: IConfig<output>): IMiddleware => {
