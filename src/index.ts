@@ -29,7 +29,7 @@ export const upload = <output>(config: IConfig<output>): IMiddleware => {
     )
 
     const uploads = await Promise.all(
-      uploadArgumentsNames.map(uploadArgumentName =>
+      nonEmptyUploadArgumentsNames.map(uploadArgumentName =>
         args[uploadArgumentName]
           .then(config.uploadHandler)
           .then(res => ({ [uploadArgumentName]: res })),
