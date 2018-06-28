@@ -1,6 +1,3 @@
 {
-  "extends": ["config:base", "docker:disable"],
-  "packageRules": {
-    "rangeStrategy": "bump"
-  }
+  "extends": ["config:base", "docker:disable", ":automergePatch"]
 }
