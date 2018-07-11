@@ -8,6 +8,7 @@ import {
   isGraphQLArgumentType,
   uploadTypeIdentifier,
   normaliseArguments,
+  processor as uploadPorcessor,
 } from './'
 
 // Helpers
@@ -434,4 +435,73 @@ test('Normalizes response correctly', async t => {
     arg1: { value: 'x' },
     arg2: { value: 'z' },
   })
+})
+
+test('Processor handles single file correctly', async t => {
+  const uploadHandler = ({ stream, filename, mimetype, encoding }) =>
+    new Promise(resolve =>
+      setTimeout(
+        () => resolve(`${stream}${filename}${mimetype}${encoding}`),
+        10,
+      ),
+    )
+
+  const res = await uploadPorcessor(uploadHandler)({
+    argumentName: 'test',
+    upload: new Promise(resolve =>
+      resolve({ stream: 's', filename: 'f', mimetype: 'm', encoding: 'e' }),
+    ),
+  })
+
+  t.deepEqual(res, {
+    argumentName: 'test',
+    upload: 'sfme',
+  })
+})
+
+test('Processor handles multiple files correctly', async t => {
+  const uploadHandler = ({ stream, filename, mimetype, encoding }) =>
+    new Promise(resolve =>
+      setTimeout(
+        () => resolve(`${stream}${filename}${mimetype}${encoding}`),
+        10,
+      ),
+    )
+
+  const file = x =>
+    new Promise(resolve =>
+      resolve({
+        stream: `s${x}`,
+        filename: `f${x}`,
+        mimetype: `m${x}`,
+        encoding: `e${x}`,
+      }),
+    )
+
+  const res = await uploadPorcessor(uploadHandler)({
+    argumentName: 'test',
+    upload: [file(1), file(2)],
+  })
+
+  t.deepEqual(res, {
+    argumentName: 'test',
+    upload: ['s1f1m1e1', 's2f2m2e2'],
+  })
+})
+
+test('Processor handles no file correctly', async t => {
+  const uploadHandler = ({ stream, filename, mimetype, encoding }) =>
+    new Promise(resolve =>
+      setTimeout(
+        () => resolve(`${stream}${filename}${mimetype}${encoding}`),
+        10,
+      ),
+    )
+
+  const res = await uploadPorcessor(uploadHandler)({
+    argumentName: 'test',
+    upload: null,
+  })
+
+  t.is(res, null)
 })

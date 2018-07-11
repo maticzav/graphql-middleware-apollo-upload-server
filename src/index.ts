@@ -201,7 +201,7 @@ export function normaliseArguments<T>(
  * Function used to process file uploads.
  *
  */
-function processor<T>(uploadHandler: IUploadHandler<T>) {
+export function processor<T>(uploadHandler: IUploadHandler<T>) {
   return function({
     argumentName,
     upload,
@@ -213,7 +213,7 @@ function processor<T>(uploadHandler: IUploadHandler<T>) {
         argumentName: argumentName,
         upload: res,
       }))
-    } else if (upload !== undefined) {
+    } else if (upload !== undefined && upload !== null) {
       return upload.then(uploadHandler).then(res => ({
         argumentName: argumentName,
         upload: res,
