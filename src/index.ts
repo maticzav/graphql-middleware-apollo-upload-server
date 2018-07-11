@@ -3,6 +3,7 @@ import {
   GraphQLArgument,
   GraphQLField,
   getNamedType,
+  GraphQLType,
 } from 'graphql'
 import { GraphQLUpload } from 'apollo-upload-server'
 import { IMiddlewareFunction } from 'graphql-middleware'
@@ -70,7 +71,7 @@ function filterMap<T, U>(f: (x: T) => Maybe<U>, xs: T[]): U[] {
  *
  */
 function getArgumentValue(args: { [key: string]: any }, arg: GraphQLArgument) {
-  return args.get(arg.name)
+  return args[arg.name]
 }
 
 /**
@@ -106,10 +107,10 @@ export function filterMapFieldArguments<T>(
  *
  */
 export function isGraphQLArgumentType(
-  type,
+  type: GraphQLType,
   argument: GraphQLArgument,
 ): boolean {
-  return getNamedType(argument.type) instanceof type
+  return getNamedType(argument.type).name === getNamedType(type).name
 }
 
 // Upload --------------------------------------------------------------------
@@ -145,7 +146,7 @@ interface IConfig<T> {
  * Funciton used to identify GraphQLUpload arguments.
  *
  */
-function uploadTypeIdentifier(
+export function uploadTypeIdentifier(
   def: GraphQLArgument,
   value: any,
 ): IUploadArgument {
@@ -182,7 +183,7 @@ function extractUploadArguments(
  * be later used as arguments definition.
  *
  */
-function normaliseArguments<T>(
+export function normaliseArguments<T>(
   args: IProcessedUploadArgument<T>[],
 ): { [key: string]: T } {
   return args.reduce((acc, val) => {

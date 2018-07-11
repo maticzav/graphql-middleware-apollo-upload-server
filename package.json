@@ -16,7 +16,8 @@
     "prepublish": "npm run test",
     "build": "rm -rf dist && tsc -d",
     "lint": "tslint --project tsconfig.json {src}/**/*.ts && prettier-check --ignore-path .gitignore {src,.}/{*.ts,*.js}",
-    "test": "npm run lint && npm run build",
+    "test": "npm run lint && npm run build && npm run test-ava",
+    "test-ava": "ava --verbose",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
