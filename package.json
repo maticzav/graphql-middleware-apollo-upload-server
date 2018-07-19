@@ -31,7 +31,7 @@
     "graphql-tools": "3.0.5",
     "prettier": "1.13.7",
     "prettier-check": "2.0.0",
-    "semantic-release": "15.5.2",
+    "semantic-release": "15.8.1",
     "tslint": "5.10.0",
     "tslint-config-prettier": "1.13.0",
     "tslint-config-standard": "7.0.0",
