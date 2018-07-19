@@ -2,14 +2,15 @@ import test from 'ava'
 import { makeExecutableSchema } from 'graphql-tools'
 import { applyMiddleware } from 'graphql-middleware'
 import { GraphQLUpload } from 'apollo-upload-server'
-import { graphql, GraphQLString, GraphQLInteger } from 'graphql'
+import { graphql, GraphQLString } from 'graphql'
 import {
   filterMapFieldArguments,
   isGraphQLArgumentType,
   uploadTypeIdentifier,
   normaliseArguments,
   processor as uploadPorcessor,
-} from './'
+  IUpload,
+} from '../'
 
 // Helpers
 
@@ -468,7 +469,7 @@ test('Processor handles multiple files correctly', async t => {
       ),
     )
 
-  const file = x =>
+  const file = (x): Promise<IUpload> =>
     new Promise(resolve =>
       resolve({
         stream: `s${x}`,
@@ -486,6 +487,36 @@ test('Processor handles multiple files correctly', async t => {
   t.deepEqual(res, {
     argumentName: 'test',
     upload: ['s1f1m1e1', 's2f2m2e2'],
+  })
+})
+
+test('Processor handles empty files correctly', async t => {
+  const uploadHandler = ({ stream, filename, mimetype, encoding }) =>
+    new Promise(resolve =>
+      setTimeout(
+        () => resolve(`${stream}${filename}${mimetype}${encoding}`),
+        10,
+      ),
+    )
+
+  const file = (x): Promise<IUpload> =>
+    new Promise(resolve =>
+      resolve({
+        stream: `s${x}`,
+        filename: `f${x}`,
+        mimetype: `m${x}`,
+        encoding: `e${x}`,
+      }),
+    )
+
+  const res = await uploadPorcessor(uploadHandler)({
+    argumentName: 'test',
+    upload: [file(1), null, undefined],
+  })
+
+  t.deepEqual(res, {
+    argumentName: 'test',
+    upload: ['s1f1m1e1'],
   })
 })
 

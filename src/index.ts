@@ -207,13 +207,19 @@ export function processor<T>(uploadHandler: IUploadHandler<T>) {
     upload,
   }: IUploadArgument): Maybe<Promise<IProcessedUploadArgument<T>>> {
     if (Array.isArray(upload)) {
-      const uploads = upload.map(file => file.then(uploadHandler))
+      const uploads = upload.reduce((acc, file) => {
+        if (file !== undefined && file !== null && file.then) {
+          return [...acc, file.then(uploadHandler)]
+        } else {
+          return acc
+        }
+      }, [])
 
       return Promise.all(uploads).then(res => ({
         argumentName: argumentName,
         upload: res,
       }))
-    } else if (upload !== undefined && upload !== null) {
+    } else if (upload !== undefined && upload !== null && upload.then) {
       return upload.then(uploadHandler).then(res => ({
         argumentName: argumentName,
         upload: res,
@@ -241,8 +247,8 @@ export function processor<T>(uploadHandler: IUploadHandler<T>) {
  */
 export function upload<T>({ uploadHandler }: IConfig<T>): IMiddlewareFunction {
   return async (resolve, parent, args, ctx, info) => {
-    const files = extractUploadArguments(args, info)
-    const uploads = filterMap(processor(uploadHandler), files)
+    const uploadArguments = extractUploadArguments(args, info)
+    const uploads = filterMap(processor(uploadHandler), uploadArguments)
 
     const uploaded = await Promise.all(uploads)
     const argsUploaded = normaliseArguments(uploaded)
