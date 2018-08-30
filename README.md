@@ -39,7 +39,7 @@ const client = new S3({
 const uploadToS3 = async file => {
   const { stream, filename, mimetype, encoding } = file
 
-  const response = await s3Client
+  const response = await client
     .upload({
       Key: filename,
       ACL: 'public-read',
@@ -48,8 +48,8 @@ const uploadToS3 = async file => {
     .promise()
 
   return {
-    name: filename
-    url: response.Location,
+    name: filename,
+    url: response.Location
   }
 }
 
