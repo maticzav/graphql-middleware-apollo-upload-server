@@ -21,7 +21,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "apollo-upload-server": "^5.0.0"
+    "apollo-upload-server": "^7.0.0"
   },
   "devDependencies": {
     "@types/graphql": "0.13.4",
