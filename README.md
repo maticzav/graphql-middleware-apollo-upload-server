@@ -33,7 +33,7 @@ import { upload } from 'graphql-middleware-apollo-upload-server'
 const client = new S3({
   accessKeyId: __S3_KEY__,
   secretAccessKey: __S3_SECRET__,
-  Bucket: __S3_BUCKET__,
+  params: { Bucket: __S3_BUCKET__ },
 })
 
 const uploadToS3 = async file => {
