@@ -29,7 +29,7 @@
     "graphql": "0.13.2",
     "graphql-middleware": "1.7.3",
     "graphql-tools": "3.0.5",
-    "prettier": "1.13.7",
+    "prettier": "1.14.3",
     "prettier-check": "2.0.0",
     "semantic-release": "15.8.1",
     "ts-node": "7.0.1",
