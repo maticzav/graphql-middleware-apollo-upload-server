@@ -27,7 +27,7 @@
     "@types/graphql": "0.13.4",
     "ava": "0.25.0",
     "graphql": "0.13.2",
-    "graphql-middleware": "1.7.3",
+    "graphql-middleware": "1.7.6",
     "graphql-tools": "4.0.0",
     "prettier": "1.14.3",
     "prettier-check": "2.0.0",
