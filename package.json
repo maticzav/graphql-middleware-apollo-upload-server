@@ -28,7 +28,7 @@
     "ava": "0.25.0",
     "graphql": "0.13.2",
     "graphql-middleware": "1.7.8",
-    "graphql-tools": "4.0.3",
+    "graphql-tools": "4.0.4",
     "prettier": "1.14.3",
     "prettier-check": "2.0.0",
     "semantic-release": "15.8.1",
