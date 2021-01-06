@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@types/graphql": "0.13.4",
-    "ava": "0.25.0",
+    "ava": "3.15.0",
     "graphql": "0.13.2",
     "graphql-middleware": "1.7.8",
     "graphql-tools": "4.0.4",
